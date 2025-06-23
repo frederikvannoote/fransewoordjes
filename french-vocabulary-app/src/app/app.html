@@ -1,0 +1,19 @@
+<main class="main">
+  <h1>{{ title }}</h1>
+  <app-word-display></app-word-display>
+  <app-canvas-input (drawingSubmitted)="handleDrawingSubmission($event)"></app-canvas-input>
+
+  <div *ngIf="isLoadingOcr" class="loading">
+    <p>⏳ Recognizing your drawing...</p>
+  </div>
+
+  <div *ngIf="!isLoadingOcr && feedbackMessage"
+       class="feedback"
+       [class.correct]="feedbackMessage.startsWith('Correct!')"
+       [class.incorrect]="feedbackMessage.startsWith('Not quite') || feedbackMessage.startsWith('OCR could not') || feedbackMessage.startsWith('Error:') || feedbackMessage.startsWith('Failed to get OCR result') || feedbackMessage.startsWith('OCR functionality is disabled')">
+    <p [innerHTML]="feedbackMessage"></p>
+    <p *ngIf="ocrResult">Recognized text: "{{ ocrResult }}"</p>
+  </div>
+
+  <button (click)="showNewWord()" class="next-word-button" [disabled]="isLoadingOcr">Next Word</button>
+</main>

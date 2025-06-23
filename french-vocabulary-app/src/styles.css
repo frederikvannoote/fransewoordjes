@@ -1,0 +1,104 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #f0f8ff; /* AliceBlue */
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to top */
+  min-height: 100vh;
+  text-align: center;
+}
+
+h1 {
+  color: #4a4a4a; /* Dark grey */
+  font-size: 2.5em;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #5a5a5a; /* Medium grey */
+  font-size: 2em;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #45a049; /* Darker green */
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* App container */
+.main {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; /* Max width for the app content */
+}
+
+.feedback {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.1em;
+}
+
+.feedback p:first-child {
+  font-weight: bold;
+}
+
+.feedback p:last-child {
+  font-style: italic;
+  color: #555;
+  font-size: 0.9em;
+}
+
+.loading {
+  margin-top: 20px;
+  font-style: italic;
+  color: #777;
+}
+
+.next-word-button {
+    background-color: #007bff; /* Blue */
+}
+.next-word-button:hover {
+    background-color: #0056b3; /* Darker Blue */
+}
+
+/* Styles for word display component */
+app-word-display h2 {
+  font-size: 2.8em; /* Larger for the word to learn */
+  color: #007bff; /* Blue */
+  margin-bottom: 25px;
+  padding: 10px;
+  border: 2px dashed #007bff;
+  border-radius: 8px;
+  display: inline-block; /* So border fits content */
+}

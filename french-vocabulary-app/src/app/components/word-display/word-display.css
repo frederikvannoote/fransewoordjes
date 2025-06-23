@@ -1,0 +1,10 @@
+:host {
+  display: block; /* Or inline-block if preferred for layout */
+  text-align: center; /* Ensures h2 inside is centered if it's not block */
+  margin-bottom: 20px; /* Add some space below the word display */
+}
+
+/*
+  h2 styling is already in the global styles.css (app-word-display h2)
+  This file can be used for more specific :host or deep styling if needed.
+*/

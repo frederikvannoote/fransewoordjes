@@ -1,0 +1,13 @@
+<div>
+  <canvas #drawingCanvas width="400" height="200"
+          (mousedown)="startDrawing($event)" (mousemove)="draw($event)" (mouseup)="stopDrawing()"
+          (mouseleave)="stopDrawing()"
+          (touchstart)="startDrawing($event)" (touchmove)="draw($event)" (touchend)="stopDrawing()"
+          aria-label="Drawing canvas for French words">
+          <!-- Added mouseleave to stop drawing if mouse exits canvas while pressed -->
+  </canvas>
+  <div class="canvas-controls">
+    <button (click)="clearCanvas()" class="clear-button">Clear</button>
+    <button (click)="submitDrawing()" class="submit-button">Submit Answer</button>
+  </div>
+</div>
