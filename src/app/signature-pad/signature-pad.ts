@@ -29,4 +29,14 @@ export class SignaturePadComponent {
       console.log('Signature saved:', dataURL); // Logs the signature data URL
     }
   }
+
+  signature() {
+    if (this.signaturePad.isEmpty()) {
+      alert('Please provide a signature first.');
+      return null;
+    } else {
+      const dataURL = this.signaturePad.toDataURL(); // Converts the signature to a data URL
+      return dataURL;
+    }
+  }
 }

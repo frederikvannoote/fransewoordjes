@@ -222,12 +222,16 @@
       </svg>
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
+      <label for="username">Azure Computer Vision API key:</label>
+      <input type="text" id="apikey" name="apikey" #apikey>
 
       <p>Count: {{ count }}</p>      
       <button (click)="likeAndSubscribe()">Increment</button>
 
       <app-signature-pad></app-signature-pad>
 
+      <button (click)="handleImage(apikey.value)">OK</button>
+      <p>Recognized: {{ text }}</p>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">

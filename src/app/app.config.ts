@@ -2,6 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { SignaturePadComponent } from './signature-pad/signature-pad';
+import { HttpClientModule } from '@angular/common/http';
 
 import { routes } from './app.routes';
 
@@ -10,6 +11,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    SignaturePadComponent
+    SignaturePadComponent,
+    importProvidersFrom(HttpClientModule)
   ]
 };
