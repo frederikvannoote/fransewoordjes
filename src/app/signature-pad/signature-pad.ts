@@ -5,7 +5,7 @@ import SignaturePad from 'signature_pad';
   selector: 'app-signature-pad',
   imports: [],
   templateUrl: './signature-pad.html',
-  styleUrl: './signature-pad.css',
+  styleUrls: ['./signature-pad.css'],
   standalone: true
 })
 export class SignaturePadComponent {
