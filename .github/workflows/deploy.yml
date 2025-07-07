@@ -1,0 +1,32 @@
+name: Deploy to https://frederikvannoote.github.io
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Upload
+        run: ng deploy --base-href=/ --repo=https://github.com/frederikvannoote/frederikvannoote.github.io.git --name="Frederik Vannoote" --email="frederik@vannoote.net"
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
