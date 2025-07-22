@@ -52,11 +52,21 @@
       <input type="text" id="apikey" name="apikey" #apikey>
     </p>
 
-    <app-signature-pad></app-signature-pad>
+    <button mat-icon-button>
+      <mat-icon>settings</mat-icon>
+    </button>
 
-    <button (click)="handleImage(apikey.value)">OK</button>
-    <button (click)="clear()">Wissen</button>
+    <app-signature-pad></app-signature-pad>
     
+    <button mat-raised-button color="primary" (click)="handleImage(apikey.value)">
+      <mat-icon>auto_awesome</mat-icon>
+      Lees handschrift
+    </button>
+    <button mat-raised-button color="primary" (click)="clear()">
+      <mat-icon>delete</mat-icon>
+      Wissen
+    </button>
+
     <p>Recognized: {{ text }}</p>
   </div>
 </main>

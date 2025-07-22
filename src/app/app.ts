@@ -3,10 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { SignaturePadComponent } from './signature-pad/signature-pad'; // Import the component
 import { WordsService } from './words.service'; // Import the WordsService
 import { RecognizeService } from './recognize.service'; // Import the RecognizeService
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SignaturePadComponent],
+  imports: [RouterOutlet, SignaturePadComponent, MatIconModule, MatButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
