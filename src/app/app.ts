@@ -11,7 +11,7 @@ import { RecognizeService } from './recognize.service'; // Import the RecognizeS
   styleUrl: './app.css'
 })
 export class App {
-  protected title = 'fransewoordjes';
+  protected title = 'Franse woordjes';
   protected text = '';
   count = 0;
 
@@ -56,10 +56,8 @@ export class App {
     }
   }
 
-  likeAndSubscribe() {
-    this.count++;
-    console.log(`Like and subscribe clicked ${this.count} times!`);
-    this.saveWord(`word-${this.count}`, `Word ${this.count}`); // Example usage of the service
+  clear() {
+    this.signaturePad.clear(); // Clears the signature pad
   }
 
   saveWord(key: string, word: string) {

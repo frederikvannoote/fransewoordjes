@@ -17,7 +17,7 @@ export class SignaturePadComponent {
     this.signaturePad = new SignaturePad(canvas);
   }
 
-  clearSignature() {
+  clear() {
     this.signaturePad.clear(); // Clears the canvas
   }
 
