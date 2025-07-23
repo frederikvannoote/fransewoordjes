@@ -26,9 +26,13 @@
               }
             ],
             "styles": [
-              "src/custom-theme.scss",
-              "src/styles.css"
+              "src/custom-theme.scss"
+            ],
+            "stylePreprocessorOptions": {
+            "includePaths": [
+              "node_modules"
             ]
+          }
           },
           "configurations": {
             "production": {
@@ -85,7 +89,12 @@
             ],
             "styles": [
               "src/styles.css"
+            ],
+            "stylePreprocessorOptions": {
+            "includePaths": [
+              "node_modules"
             ]
+          }
           }
         },
         "deploy": {

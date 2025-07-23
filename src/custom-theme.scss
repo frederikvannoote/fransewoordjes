@@ -1,20 +1,47 @@
-
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+// The explicit '@use @angular/material/theming' is no longer needed since Angular 19.
+// Using 'mat.m2' for Material 2 theming functions as per breaking changes.
+
+// Define your custom theme palettes for an "Azure-Blue" theme using Material 2 functions
+$my-app-primary: mat.m2-define-palette(mat.$m2-blue-palette);
+$my-app-accent: mat.m2-define-palette(mat.$m2-blue-palette, A200, A100, A400); // Using blue for accent
+$my-app-warn: mat.m2-define-palette(mat.$m2-red-palette); // Standard warn palette
+
+// Define the light theme using Material 2 functions
+$my-app-light-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $my-app-primary,
+    accent: $my-app-accent, // Use accent here
+    warn: $my-app-warn,
+  ),
+  typography: mat.m2-define-typography-config(), // Use Material 2 typography config
+  density: 0,
+));
+
+// Define a dark theme (optional, but good for completeness) using Material 2 functions
+$my-app-dark-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: $my-app-primary,
+    accent: mat.m2-define-palette(mat.$m2-blue-palette, A700, A200, A400), // Adjust accent for dark mode
+    warn: $my-app-warn,
+  ),
+  typography: mat.m2-define-typography-config(), // Use Material 2 typography config
+  density: 0,
+));
+
+// Include the common styles for Angular Material.
+// This includes component theming, typography, and other base styles.
+// For Material 2 theming, mat.core() is typically included.
+@include mat.core();
 
 html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  // Apply the light theme by default using Material 2 component themes
+  @include mat.m2-all-component-themes($my-app-light-theme);
 
   // Default the application to a light color theme. This can be changed to
   // `dark` to enable the dark color theme, or to `light dark` to defer to the
@@ -28,3 +55,13 @@ html {
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 }
+
+// Optional: Include the dark theme based on system preference or a class
+@media (prefers-color-scheme: dark) {
+  html {
+    @include mat.m2-all-component-themes($my-app-dark-theme);
+    color-scheme: dark;
+  }
+}
+
+/* You can add any other global styles below here */

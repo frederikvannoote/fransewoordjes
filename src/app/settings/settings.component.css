@@ -1,0 +1,28 @@
+.settings-form {
+display: flex;
+flex-direction: column;
+gap: 20px; /* Spacing between form elements */
+padding: 10px 0;
+}
+mat-form-field {
+width: 100%;
+}
+.language-selection {
+display: flex;
+flex-direction: column;
+gap: 10px;
+margin-top: 10px;
+}
+mat-radio-group {
+display: flex;
+flex-direction: row;
+gap: 15px;
+}
+mat-dialog-content {
+min-width: 300px;
+max-width: 500px;
+overflow: hidden; /* Prevent content overflow */
+}
+mat-dialog-actions button {
+margin-left: 8px;
+}

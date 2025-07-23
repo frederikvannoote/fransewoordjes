@@ -5,22 +5,37 @@ import { WordsService } from './words.service'; // Import the WordsService
 import { RecognizeService } from './recognize.service'; // Import the RecognizeService
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Required for Material animations
+import { MatDialogModule } from '@angular/material/dialog'; // Import MatDialogModule
+import { DialogContentComponent, AppSettings } from './settings/settings.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SignaturePadComponent, MatIconModule, MatButtonModule],
+  imports: [RouterOutlet, SignaturePadComponent, MatIconModule, MatButtonModule, MatCardModule/*BrowserModule, BrowserAnimationsModule, MatDialogModule*/],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected title = 'Franse woordjes';
   protected text = '';
-  count = 0;
+
+  // Initialize with default settings
+  appSettings: AppSettings = {
+    theme: 'light',
+    notificationsEnabled: true,
+    language: 'en',
+    itemsPerPage: 10
+  };
+
+  lastDialogResult: AppSettings | null | undefined; // To show the dialog's outcome
 
   @ViewChild(SignaturePadComponent) signaturePad!: SignaturePadComponent; // Reference to SignaturePadComponent
 
-  constructor(private wordsService: WordsService, private recognizeService: RecognizeService) {} // Inject RecognizeService
+  constructor(private wordsService: WordsService, private recognizeService: RecognizeService, public dialog: MatDialog) {} // Inject RecognizeService
 
   handleImage(apikey: string) {
     console.log('Image handling logic goes here.');
@@ -80,6 +95,26 @@ export class App {
       }
     }).catch((error) => {
       console.error('Error loading word:', error);
+    });
+  }
+
+  openSettingsDialog(): void {
+    const dialogRef = this.dialog.open(DialogContentComponent, {
+      width: '500px', // Set a suitable width for the settings dialog
+      data: {
+        title: 'Application Settings',
+        currentSettings: { ...this.appSettings } // Pass a copy of current settings
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The settings dialog was closed with result:', result);
+      this.lastDialogResult = result;
+
+      // If result is not null (meaning "Save" was clicked), update appSettings
+      if (result) {
+        this.appSettings = result;
+      }
     });
   }
 }

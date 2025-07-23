@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="settingsForm" class="settings-form">
+    <mat-form-field appearance="outline">
+        <mat-label>Theme</mat-label>
+        <mat-select formControlName="theme">
+        <mat-option value="light">Light</mat-option>
+        <mat-option value="dark">Dark</mat-option>
+        <mat-option value="system">System Default</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="notificationsEnabled" color="primary">
+        Enable Notifications
+    </mat-slide-toggle>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Items per page</mat-label>
+        <input matInput type="number" formControlName="itemsPerPage" min="5" max="100">
+        @if (settingsForm.get('itemsPerPage')?.invalid && settingsForm.get('itemsPerPage')?.touched) {
+        @if (settingsForm.get('itemsPerPage')?.errors?.['min']) {
+            <mat-error>Must be at least 5</mat-error>
+        }
+        @if (settingsForm.get('itemsPerPage')?.errors?.['max']) {
+            <mat-error>Cannot exceed 100</mat-error>
+        }
+        }
+    </mat-form-field>
+
+    <div class="language-selection">
+        <mat-label>Language:</mat-label>
+        <mat-radio-group aria-label="Select a language" formControlName="language">
+        <mat-radio-button value="en">English</mat-radio-button>
+        <mat-radio-button value="es">Spanish</mat-radio-button>
+        <mat-radio-button value="fr">French</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSaveClick()" cdkFocusInitial [disabled]="settingsForm.invalid">
+    <mat-icon>save</mat-icon> Save Settings
+    </button>
+</mat-dialog-actions>
