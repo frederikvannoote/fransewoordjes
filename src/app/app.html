@@ -47,25 +47,30 @@
   <div class="content">
     <!--<h1>{{ title }}</h1>-->
 
-    <p>
-      <label for="username">Azure Computer Vision API key:</label>
-      <input type="text" id="apikey" name="apikey" #apikey>
-    </p>
-
-    <button mat-icon-button (click)="openSettingsDialog()">
-      <mat-icon>settings</mat-icon>
-    </button>
-
-    <app-signature-pad></app-signature-pad>
+    <mat-card-actions class="button-right-align">
+      <div>
+        <button mat-icon-button (click)="openSettingsDialog()">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
     
-    <button mat-raised-button color="primary" (click)="handleImage(apikey.value)">
-      <mat-icon>auto_awesome</mat-icon>
-      Lees handschrift
-    </button>
-    <button mat-raised-button color="primary" (click)="clear()">
-      <mat-icon>delete</mat-icon>
-      Wissen
-    </button>
+    <div width="100%" class="signature-pad-container">
+      <app-signature-pad></app-signature-pad>
+    </div>
+    
+    <mat-card-actions class="button-left-align">
+      <div>
+        <button mat-raised-button color="primary" (click)="handleImage()">
+          <mat-icon>auto_awesome</mat-icon>
+          Lees handschrift
+        </button>
+        <button mat-raised-button color="primary" (click)="clear()">
+          <mat-icon>delete</mat-icon>
+          Wissen
+        </button>
+      </div>
+    </mat-card-actions>
 
     <p>Recognized: {{ text }}</p>
   </div>

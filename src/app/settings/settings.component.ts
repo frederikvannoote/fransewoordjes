@@ -12,10 +12,8 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
 
 // Define the interface for your application settings
 export interface AppSettings {
-  theme: 'light' | 'dark' | 'system';
-  notificationsEnabled: boolean;
-  language: 'en' | 'es' | 'fr';
-  itemsPerPage: number;
+  azure_vision_api_key?: string; // Optional field for Azure Vision API key
+  azure_vision_endpoint?: string; // Optional field for Azure Vision endpoint
 }
 
 @Component({
@@ -47,14 +45,12 @@ export class DialogContentComponent implements OnInit {
   ngOnInit(): void {
     // Initialize the form with the current settings passed from the opening component
     this.settingsForm = new FormGroup({
-      theme: new FormControl(this.data.currentSettings.theme, Validators.required),
-      notificationsEnabled: new FormControl(this.data.currentSettings.notificationsEnabled),
-      language: new FormControl(this.data.currentSettings.language, Validators.required),
-      itemsPerPage: new FormControl(this.data.currentSettings.itemsPerPage, [
-        Validators.required,
-        Validators.min(5),
-        Validators.max(100)
-      ])
+       azure_vision_api_key: new FormControl(this.data.currentSettings.azure_vision_api_key || '', [
+        Validators.pattern(/^[a-zA-Z0-9-]+$/) // Example pattern
+      ]),
+      azure_vision_endpoint: new FormControl(this.data.currentSettings.azure_vision_endpoint || '',
+        Validators.pattern(/^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?$/) // Example URL pattern
+      )
     });
   }
 

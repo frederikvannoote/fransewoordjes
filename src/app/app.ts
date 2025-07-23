@@ -7,15 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Required for Material animations
-import { MatDialogModule } from '@angular/material/dialog'; // Import MatDialogModule
 import { DialogContentComponent, AppSettings } from './settings/settings.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SignaturePadComponent, MatIconModule, MatButtonModule, MatCardModule/*BrowserModule, BrowserAnimationsModule, MatDialogModule*/],
+  imports: [RouterOutlet, SignaturePadComponent, MatIconModule, MatButtonModule, MatCardModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -24,20 +21,30 @@ export class App {
   protected text = '';
 
   // Initialize with default settings
-  appSettings: AppSettings = {
-    theme: 'light',
-    notificationsEnabled: true,
-    language: 'en',
-    itemsPerPage: 10
-  };
+  appSettings: AppSettings = { };
 
   lastDialogResult: AppSettings | null | undefined; // To show the dialog's outcome
 
   @ViewChild(SignaturePadComponent) signaturePad!: SignaturePadComponent; // Reference to SignaturePadComponent
 
-  constructor(private wordsService: WordsService, private recognizeService: RecognizeService, public dialog: MatDialog) {} // Inject RecognizeService
+  constructor(private wordsService: WordsService, private recognizeService: RecognizeService, public dialog: MatDialog) {
+    // Load settings from WordsService
+    this.wordsService.getSettings().then((settings) => {
+      if (settings) {
+        this.appSettings = settings
+        console.log('Settings loaded:', this.appSettings);
 
-  handleImage(apikey: string) {
+        if (settings.azure_vision_endpoint != null && settings.azure_vision_api_key != null) {
+          recognizeService.setEndpoint(settings.azure_vision_endpoint);
+          recognizeService.setApiKey(settings.azure_vision_api_key);
+        }
+      }
+    }).catch((error) => {
+      console.error('Error loading settings:', error);
+    });
+  }
+  
+  handleImage() {
     console.log('Image handling logic goes here.');
 
     if (this.signaturePad) {
@@ -51,7 +58,7 @@ export class App {
         const byteArray = new Uint8Array(byteNumbers);
         const blob = new Blob([byteArray], { type: 'image/png' }); // Create a Blob object
 
-        this.recognizeService.recognizeImage(blob, apikey).then((response) => {
+        this.recognizeService.recognizeImage(blob).then((response) => {
           console.log('Recognition result:', response);
           console.log('blocks:', response.readResult.blocks.length)
           if (response && response.readResult && 
@@ -114,6 +121,17 @@ export class App {
       // If result is not null (meaning "Save" was clicked), update appSettings
       if (result) {
         this.appSettings = result;
+
+        if (result.azure_vision_endpoint != null && result.azure_vision_api_key != null) {
+          this.recognizeService.setEndpoint(result.azure_vision_endpoint);
+          this.recognizeService.setApiKey(result.azure_vision_api_key);
+        }
+
+        this.wordsService.saveSettings(this.appSettings).then(() => {
+          console.log('Settings saved successfully.');
+        }).catch((error) => {
+          console.error('Error saving settings:', error);
+        });
       }
     });
   }

@@ -4,4 +4,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 canvas {
     border:black 3px solid;
     background-color: slategrey;
+    width: 100%;
+    height: 40%;
 }
+
+.button-right-align {
+    display: flex;
+    justify-content: flex-end; /* Pushes content to the right */
+    width: 100%; /* Ensure it takes full width to align content */
+  }
